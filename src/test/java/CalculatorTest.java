@@ -1,10 +1,16 @@
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalculatorTest {
     private static Calculator suite = new Calculator();
@@ -39,6 +45,7 @@ public class CalculatorTest {
         assertFalse(suite.isPositive.test(x *( -1)));
         assertTrue(suite.isPositive.test(x));
 
+
     }
     @Test
     public void testMinus() {
@@ -48,8 +55,15 @@ public class CalculatorTest {
         int result = suite.minus.apply(x, y);
         assertEquals(result, exected);
         assertTrue(exected == result);
+        assertThat(exected, Matchers.lessThan(x));
 
     }
+    @Test
+    public void testCorrectClass() {
+        assertThat(suite, instanceOf(Calculator.class));
+    }
+
+
 
     @AfterAll
     public static void completeTests() {
